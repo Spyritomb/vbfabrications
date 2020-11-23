@@ -1,6 +1,10 @@
-<?php namespace App\Controllers;
+<?php
 
-class Home extends BaseController
+
+namespace App\Controllers;
+
+
+class Products extends BaseController
 {
     public function index()
     {
@@ -24,7 +28,8 @@ class Home extends BaseController
 
 
         echo view('templates/header', $data);
-        echo view('home',$data);
+        echo view('templates/sidebar');
+        echo view('products',$data);
         echo view('templates/footer');
     }
 
