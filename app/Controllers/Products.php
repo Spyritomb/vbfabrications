@@ -28,7 +28,7 @@ class Products extends BaseController
 
 
         echo view('templates/header', $data);
-        echo view('templates/sidebar');
+//        echo view('templates/sidebar');
         echo view('products',$data);
         echo view('templates/footer');
     }
