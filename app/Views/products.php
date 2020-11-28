@@ -3,8 +3,8 @@
 
 <!--<div class="container">-->
     <div class="row">
-        <div class="col-md-1">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="col-md-2">
+            <nav id="sidebarMenu" >
                 <div class="sidebar-sticky pt-3"  >
                     <p>Sort By</p>
 
@@ -21,7 +21,7 @@
             </nav>
 
         </div>
-        <div class="col-md-11">
+        <div class="col-md-10">
             <div class="card-deck">
                 <div class="card">
                     <?= img("images/Tractor.JPG") ?>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+                    <?= img("images/lely.JPG") ?>
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
+
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
