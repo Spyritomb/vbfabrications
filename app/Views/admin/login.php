@@ -13,10 +13,11 @@ helper('form');
     <div id="formContent">
         <!-- Tabs Titles -->
 
-        <!-- Icon -->
+        <!-- Logo -->
         <div class="fadeIn first">
-            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon"/>
+            <?= img("images/logo.png") ?>
         </div>
+
 
         <!-- Login Form -->
         <!--    <form>-->
@@ -28,8 +29,8 @@ helper('form');
         <?= form_input([
                 '' => ''
         ]); ?>
-        <?= form_password([
-
+        <?= form_input([
+            '' => ''
         ]); ?>
         <?= form_submit([
 

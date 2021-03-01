@@ -2,6 +2,8 @@
 
 
 namespace App\Controllers;
+use App\Entities\User;
+use App\Models\UserModel;
 
 
 class Admin extends BaseController
@@ -17,6 +19,15 @@ class Admin extends BaseController
 
     public function login()
     {
+//        $userEntity= new User([
+//            'username'=> 'Andreas'
+//        ]);
+//        $userModel = new UserModel();
+//        $userEntity=$userModel->readByUsername($userEntity);
+//        echo '<pre>';
+//        var_dump($userEntity->id);
+//        echo '</pre>';
+
 
         echo view('admin/login');
     }
@@ -24,6 +35,7 @@ class Admin extends BaseController
     public function setlogin()
     {
         $this->session->set('loggedIn', true);
+        return redirect()->to('/admin/dashboard');
     }
 
     public function logout()
@@ -34,6 +46,8 @@ class Admin extends BaseController
 
     public function dashboard()
     {
+        echo view('templates/adminheader');
+        echo view('admin/portal');
 
     }
 

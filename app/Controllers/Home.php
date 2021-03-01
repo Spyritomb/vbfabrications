@@ -5,19 +5,24 @@ class Home extends BaseController
     public function index()
     {
 
-        $imageProperties = [
-            'src'    => 'images/Tractor.jpg',
-            'alt'    => 'Me, demonstrating how to eat 4 slices of pizza at one time',
+        $test = [
+            'bruv' => 'images/homeframe.JPG'
+        ];
+
+        $homefarmview = [
+            'src'    => 'images/homefarm.JPG',
+            'alt'    => 'Farm View',
             'class'  => 'post_images',
-            'width'  => '200',
-            'height' => '200',
+            'width'  => '100%',
+            'height' => '50%',
             'title'  => 'That was quite a night',
             'rel'    => 'lightbox'
         ];
 
         $data = [
-            "title" => "About",
-            "images" => $imageProperties
+            "title" => "V.B. Fabrications LTD",
+            "images" => $homefarmview,
+            'bruv2' => $test
         ];
 
 

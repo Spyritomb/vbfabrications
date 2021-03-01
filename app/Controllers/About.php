@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 
-class Products extends BaseController
+class About extends BaseController
 {
     public function index()
     {
@@ -20,7 +20,7 @@ class Products extends BaseController
         ];
 
         $data = [
-            "title" => "Products",
+            "title" => "About",
             "images" => $imageProperties
         ];
 
@@ -28,8 +28,7 @@ class Products extends BaseController
 
 
         echo view('templates/header', $data);
-//        echo view('templates/sidebar');
-        echo view('products',$data);
+        echo view('about',$data);
         echo view('templates/footer');
     }
 
