@@ -2,7 +2,9 @@
 
 
 namespace App\Controllers;
+
 use App\Entities\User;
+use App\Models\ProductModel;
 use App\Models\UserModel;
 
 
@@ -17,26 +19,44 @@ class Admin extends BaseController
         }
     }
 
-    public function login()
+    public function loginGet()
     {
-//        $userEntity= new User([
-//            'username'=> 'Andreas'
-//        ]);
-//        $userModel = new UserModel();
-//        $userEntity=$userModel->readByUsername($userEntity);
-//        echo '<pre>';
-//        var_dump($userEntity->id);
-//        echo '</pre>';
-
-
-        echo view('admin/login');
+        if ($this->session->get('loggedIn')) {
+            return redirect()->to('/admin/dashboard');
+        }
+        return view('admin/login');
     }
 
-    public function setlogin()
+    public function loginPost()
     {
-        $this->session->set('loggedIn', true);
-        return redirect()->to('/admin/dashboard');
+        if ($this->request->getMethod() == 'post') {
+
+            if ($this->session->get('loggedIn')) {
+                return redirect()->to('/admin/dashboard');
+            }
+
+            $user = new User($this->request->getPost());
+            $userModel = new UserModel();
+
+            $userLogin = $userModel->login($user);
+
+            if ($userLogin) {
+                $this->session->set('loggedIn', true);
+                return redirect()->to('/admin/dashboard');
+
+            } else {
+                return redirect()->back()->with('error', 'Incorrect credentials')->withInput();
+            }
+
+        }
+        return view('admin/login');
     }
+
+//    public function setlogin()
+//    {
+//        $this->session->set('loggedIn', true);
+//        return redirect()->to('/admin/dashboard');
+//    }
 
     public function logout()
     {
@@ -46,8 +66,9 @@ class Admin extends BaseController
 
     public function dashboard()
     {
-        echo view('templates/adminheader');
-        echo view('admin/portal');
+
+        echo view('templates/header',['title'=>'Dashboard']);
+        echo view('admin/dashboard');
 
     }
 

@@ -10,7 +10,7 @@ class Sub extends BaseController
 
 
         $data = [
-            "title" => "Products",
+            "title" => "AI Search",
             //"images" => $imageProperties
         ];
         echo view('templates/header', $data);

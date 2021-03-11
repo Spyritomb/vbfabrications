@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Entities\User;
+use CodeIgniter\Exceptions\AlertError;
 use CodeIgniter\Model;
+use mysql_xdevapi\Exception;
+use phpDocumentor\Reflection\Types\False_;
 
 class UserModel extends Model
 {
@@ -15,7 +18,7 @@ class UserModel extends Model
     protected $returnType = 'App\Entities\User';
     protected $useSoftDeletes = false;
 
-    protected $allowedFields = ['name', 'email'];
+    protected $allowedFields = ['username', 'password'];
 
     protected $useTimestamps = false;
     protected $createdField = 'created_at';
@@ -31,11 +34,44 @@ class UserModel extends Model
         return $this->find($user->id);
     }
 
-    public function readByUsername(User $user)
+    public function readByUsername(User $user, bool $returnPassword = false)
     {
-        return $this
-            ->select('id, username')
-            ->where('username',$user->username)
-            ->first();
+        if ($returnPassword) {
+            return $this
+                ->select()
+                ->where('username', $user->username)
+                ->first();
+        } else {
+            return $this
+                ->select('id, username')
+                ->where('username', $user->username)
+                ->first();
+        }
+
+    }
+
+    public function login(User $user)
+    {
+        $dbUser = $this->readByUsername($user, true);
+        echo '<pre>';
+        var_dump($dbUser);
+        echo '</pre>';
+        if ($dbUser) {
+            if (password_verify($user->password, $dbUser->password)) {
+                return new User([
+                    'id' => $dbUser->id
+                ]);
+            } else {
+                log_message('error','Credentials incorrect');
+                return false;
+            }
+        } else {
+            log_message('error','User does not exist');
+            return false;
+        }
+
+        //Check if it exists
+        //checks whether the password provided matches the pass in db
+
     }
 }

@@ -1,46 +1,43 @@
 <?php
+$session = Config\Services::session();
+$error = $session->getFlashdata('error') ?? '';
 helper('form');
-
 ?>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="/assets/css/stylesheet.css" type="text/css" rel="stylesheet">
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="wrapper fadeInDown">
+<div class="wrapper">
     <div id="formContent">
         <!-- Tabs Titles -->
 
         <!-- Logo -->
-        <div class="fadeIn first">
+<!--        <div class="fadeIn first">-->
             <?= img("images/logo.png") ?>
+
+
+        <?php
+        echo "<p>$error</p>";
+
+        echo form_open(base_url('/admin/login'));
+
+        echo form_label('Username', 'username');
+        echo '<br>';
+        echo form_input('username', old('username') ?? '');
+
+        echo form_label('Password', 'password');
+        echo '<br>';
+        echo form_password('password', old('password') ?? '');
+
+        echo form_submit('submit', 'Login');
+
+        echo form_close();
+
+        ?>
+
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
         </div>
-
-
-        <!-- Login Form -->
-        <!--    <form>-->
-        <!--      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">-->
-        <!--      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">-->
-        <!--      <input type="submit" class="fadeIn fourth" value="Log In">-->
-        <!--    </form>-->
-        <?= form_open(base_url('admin/login')); ?>
-        <?= form_input([
-                '' => ''
-        ]); ?>
-        <?= form_input([
-            '' => ''
-        ]); ?>
-        <?= form_submit([
-
-        ]); ?>
-        <?= form_close(); ?>
-
-        <!-- Remind Password -->
-        <!--        <div id="formFooter">-->
-        <!--            <a class="underlineHover" href="#">Forgot Password?</a>-->
-        <!--        </div>-->
-
     </div>
-</div>
+    </div>
+<!--</div>-->

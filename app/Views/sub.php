@@ -46,9 +46,9 @@
             document.getElementById("webcam-container").appendChild(webcam.canvas);
             labelContainer = document.getElementById("label-container");
             for (let i = 0; i < maxPredictions; i++) { // and class labels
-                let displaying = labelContainer.appendChild(document.createElement("div"));
-                labelContainer.className = "results";
-                displaying.className = "results"+i;
+                labelContainer.appendChild(document.createElement("div"));
+                 labelContainer.className = "results";
+                // displaying.className = "results"+i;
             }
         }
 
@@ -64,8 +64,13 @@
             const prediction = await model.predict(webcam.canvas);
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                    prediction[i].className;
+                    //prediction[i].className + ": " + prediction[i].probability.toFixed(2);// use this to show the number
+                if( prediction[i].probability > 0.7){
                 labelContainer.childNodes[i].innerHTML = classPrediction;
+                }else{
+                labelContainer.childNodes[i].innerHTML = "...";
+                }
             }
         }
     </script>
