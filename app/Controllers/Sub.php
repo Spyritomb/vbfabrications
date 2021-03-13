@@ -14,7 +14,7 @@ class Sub extends BaseController
             //"images" => $imageProperties
         ];
         echo view('templates/header', $data);
-        echo view('sub',$data);
+        echo view('sub');
         echo view('templates/footer');
     }
 

@@ -23,35 +23,85 @@ $session = \Config\Services::session();
 
 </head>
 <body>
-
 <!-- <nav class="navbar navbar-dark bg-primary navbar-expand-md navigation-clean-button navbar-fixed-top"> -->
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark h4">
+<!--<<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark h4">-->
+<!--    <div class="row">-->
+<!--        <div class="col-3"><a href="/" style="float: left"> --><?//= img("images/logo3.png") ?><!--</a></div>-->
+<!--          <div class="container"><a class="navbar-brand" href="#">V.B Fabrications</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">-->
+<!--        <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>-->
+<!--        <div class="collapse navbar-collapse col-6 text-center" id="navcol-1">-->
+<!--            <ul class="nav navbar-nav mr-auto">-->
+<!--                <li class="nav-item text-white" ><a class="nav-link " href="/">Home</a></li>-->
+<!--                <li class="nav-item text-white" role="presentation"><a class="nav-link" href="/products">Products</a></li>-->
+<!--                <li class="nav-item text-white" role="presentation"><a class="nav-link" href="/about">About us</a></li>-->
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Partners&nbsp;</a>-->
+<!--                    <div class="dropdown-menu" role="menu">-->
+<!--                        <a class="dropdown-item" role="presentation" href="#">DeLaval</a>-->
+<!--                        <a class="dropdown-item" role="presentation" href="#">Fullwood</a>-->
+<!--                        <a class="dropdown-item" role="presentation" href="#">GEA</a>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="nav-item" role="presentation"><a class="nav-link" href="sub">AI Search</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--            <div class="col-3 text-right">-->
+<!--                --><?php //if (!$session->get('loggedIn')): ?>
+<!--                    <span class="navbar-text actions"> <a class="login" href="/admin/login">Log In</a></span>-->
+<!--                --><?php //else: ?>
+<!--                    <li class="navbar-text actions "> <a class="login" href="/admin/dashboard">Dashboard&nbsp|</a></li>-->
+<!--                    <span class="navbar-text actions"> <a class="login" href="/admin/logout">&nbsp Log Out</a></span>-->
+<!--                --><?php //endif; ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark h4">
+    <div class="d-flex order-0">
+        <a class="navbar-brand mr-1" href="/"><?= img("images/logo3.png") ?></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse justify-content-center order-1" id="collapsingNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">Home&nbsp;&nbsp;</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/products">Products&nbsp;&nbsp;</a>
+            </li>
+            <li class="nav-item dropdown active">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Partners&nbsp;&nbsp;</a>
+                <div class="dropdown-menu" role="menu">
+                    <a class="dropdown-item" role="presentation" href="#">DeLaval</a>
+                    <a class="dropdown-item" role="presentation" href="#">Fullwood</a>
+                    <a class="dropdown-item" role="presentation" href="#">GEA</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/sub">AI&nbsp;Search</a>
+            </li>
+        </ul>
+    </div>
     <div>
-        <a href="/" style="float: left"> <?= img("images/logo3.png") ?></a>
-        <!--    <div class="container"><a class="navbar-brand" href="#">V.B Fabrications</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>-->
-        <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="nav navbar-nav mr-auto">
-                <li class="nav-item text-white" ><a class="nav-link " href="/">Home</a></li>
-                <li class="nav-item text-white" role="presentation"><a class="nav-link" href="/products">Products</a></li>
-                <li class="nav-item text-white" role="presentation"><a class="nav-link" href="/about">About us</a></li>
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Partners&nbsp;</a>
-                    <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" role="presentation" href="#">DeLaval</a>
-                        <a class="dropdown-item" role="presentation" href="#">Fullwood</a>
-                        <a class="dropdown-item" role="presentation" href="#">GEA</a>
-                    </div>
-                </li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="sub">AI Search</a></li>
-            </ul>
-            <div style="text-align: right">
-                <?php if (!$session->get('loggedIn')): ?>
-                    <span class="navbar-text actions"> <a class="login" href="/admin/login">Log In</a></span>
-                <?php else: ?>
-                    <li class="navbar-text actions "> <a class="login" href="/admin/dashboard">Dashboard&nbsp|</a></li>
-                    <span class="navbar-text actions"> <a class="login" href="/admin/logout">&nbsp Log Out</a></span>
-                <?php endif; ?>
-            </div>
-        </div>
+
+    </div>
+    <div class="justify-content-center order-2 mr-1 mr-lg-4">
+        <ul class="navbar-nav">
+            <?php if (!$session->get('loggedIn')): ?>
+            <li class="nav-item ">
+                <span class="navbar-item mt-1 w-50 text-right order-1 order-md-last whitelink"><a class="whitelink" href="/admin/login">Log In</a></span>
+            </li>
+            <?php else: ?>
+            <li class="nav-item ">
+                <span class="nav-item mt w-100 text-right order-1 order-md-last"><a class="whitelink" href="/admin/dashboard">Dashboard&nbsp;</a></span>
+            </li>
+            |
+            <li class="nav-item ">
+                <span class="navbar-item  mt-1 w-50 text-right order-1 order-md-last"><a class="whitelink" href="/admin/logout">&nbsp;Log out</a></span>
+            </li>
+            <?php endif; ?>
+        </ul>
     </div>
 </nav>

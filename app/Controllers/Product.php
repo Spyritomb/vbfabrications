@@ -13,23 +13,27 @@ class Product extends BaseController
     public function index()
     {
 
-        $imageProperties = [
-            'src' => 'images/Tractor.jpg',
-            'alt' => 'Me, demonstrating how to eat 4 slices of pizza at one time',
-            'class' => 'post_images',
-            'width' => '200',
-            'height' => '200',
-            'title' => 'That was quite a night',
-            'rel' => 'lightbox'
-        ];
+        $productModel = new ProductModel();
+        $products = $productModel->findAll();
+
+//        $imageProperties = [
+//            'src' => 'images/Tractor.jpg',
+//            'alt' => 'Me, demonstrating how to eat 4 slices of pizza at one time',
+//            'class' => 'post_images',
+//            'width' => '200',
+//            'height' => '200',
+//            'title' => 'That was quite a night',
+//            'rel' => 'lightbox'
+//        ];
 
         $data = [
             "title" => "Products",
-            "images" => $imageProperties
+//            "images" => $imageProperties,
+            'products' => $products
         ];
 
         echo view('templates/header', $data);
-        echo view('product/all', $data);
+        echo view('product/index', $data);
         echo view('templates/footer');
     }
 
@@ -40,24 +44,25 @@ class Product extends BaseController
         $products = $productModel->findAll();
 
         $data = [
-
             'products' => $products
         ];
 
-        $data2 =[
-            'title'=> "Add Product"
+        $data2 = [
+            'title' => "Add Product"
         ];
 
-        echo view('templates/header',$data2);
+        echo view('templates/header', $data2);
         echo view('product/view', $data);
 
     }
 
-    public function productGet(){
+    public function productGet()
+    {
 
     }
 
-    public function productPost(){
+    public function productPost()
+    {
 
     }
 
@@ -73,15 +78,15 @@ class Product extends BaseController
 
 
         $options = [
-        'feeders' => 'feeders',
-        'spares' => 'spares',
-        'bulktanks' => 'Bulk Tanks',
-        'robotmilkers' => 'Robot Milkers'
+            'feeders' => 'feeders',
+            'spares' => 'spares',
+            'bulktanks' => 'Bulk Tanks',
+            'robotmilkers' => 'Robot Milkers'
         ];
 
         //echo the views
         echo view('templates/header', $data);
-        echo view('product/add',$options);
+        echo view('product/add', $options);
         echo view('templates/footer');
 
     }
@@ -113,39 +118,35 @@ class Product extends BaseController
                     ->withInput();
             } else {
                 try {
-                    $result = $productModel->create($product);
-
-                    //Image related code///////////////////////////////////////
                     $file = $this->request->getFile('filename');
 
-                    if($file->isValid()&& !$file->hasMoved()){
-                        $file->move('./uploads/images');
+                    $product->filename = $file->getRandomName();
+
+                    if ($file->isValid() && !$file->hasMoved()) {
+                        $file->move('./uploads/images', $product->filename);
                     }
 
-//                    echo '<pre>';
-//                    echo $file->getName();
-//                    echo '</pre>';
-                    //////////////////////////
+                    $result = $productModel->create($product);
+
                     if ($result) {
                         log_message('error', 'Product successfully created.');
                         return redirect()->to('/product/success')->with('message', 'Product was successfully added!');
                     } else {
                         log_message('error', 'Failed save product');
-//                        echo '<pre>';
-//                        var_dump($product);
-//                        echo '</pre>';
                         return redirect()->back()->with('error', 'Product was not added!')->withInput();
                     }
                 } catch (\Exception $e) {
-
+                    //TODO: log_message()
                 }
             }
 
         }
 
+
     }
 
-    public function success(){
+    public function success()
+    {
         echo view('product/success');
     }
 

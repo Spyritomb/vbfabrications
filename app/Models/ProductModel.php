@@ -28,7 +28,6 @@ class ProductModel extends Model
         'price' => 'required|max_length[211]',
         'tag' => 'required|max_length[211]',
         'description' => 'required|max_length[211]',
-        'filename' => 'uploaded[filename]|is_image[filename]'
         //'category'=> 'required|in_list[spares,feeders,bulktanks,robotmilkers]'
     ];
 
