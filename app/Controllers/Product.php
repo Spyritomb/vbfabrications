@@ -10,6 +10,7 @@ use App\Models\ProductModel;
 
 class Product extends BaseController
 {
+
     public function index()
     {
 
@@ -56,13 +57,141 @@ class Product extends BaseController
 
     }
 
-    public function productGet()
+    public function deleteGet()
     {
+        $productModel = new ProductModel();
+        $products = $productModel->findAll();
 
+        $data = [
+            'products' => $products
+        ];
+
+        $data2 = [
+            'title' => "Add Product"
+        ];
+
+        echo view('templates/header', $data2);
+        echo view('product/delete', $data);
+
+    }
+
+    public function deletePost()
+    {
+        $productModel = new ProductModel();
+        $products = $productModel->findAll();
+
+        helper('form');
+
+
+        if (!$this->session->get('loggedIn')) {
+            return redirect()->to('/admin/login');
+        }
+
+        if ($this->request->getMethod() == 'post') {
+
+            $productModel = new ProductModel();
+
+            $postData = $this->request->getPost();
+
+            $products = array_values($postData['products']);
+            foreach ($postData['products'] as $product) {
+                $productModel->delete($product);
+            }
+
+            echo '<pre>';
+            var_dump($products);
+            echo '</pre>';
+
+            return redirect()->to('admin/dashboard');
+        }
+
+    }
+
+    public function updateGet($productID)
+    {
+        if (!$this->session->get('loggedIn')) {
+            return redirect()->to('/admin/login',401);
+        }
+
+        $productModel = new ProductModel();
+
+        $product = $productModel->find($productID);
+
+        $data = [
+            'title' => 'Update Product',
+            'product' => $product
+        ];
+
+        echo view('templates/header', $data);
+        echo view('product/update', $data);
+        echo view('templates/footer');
+
+    }
+
+    public function updatePost(){
+
+        // Mak sure the product id is available in the post data or update won't work
+        $product = new \App\Entities\Product($this->request->getPost());
+
+        $productModel = new ProductModel();
+        //$product = $productModel->find();
+
+        try {
+
+            $result = $productModel->modify($product);
+
+            if ($result) {
+                log_message('error', 'Product successfully updated.');
+                return redirect()->to('/product/success')->with('message', 'Product was successfully updated!');
+            } else {
+                log_message('error', 'Failed to update product');
+                return redirect()->back()->with('error', 'Product was not updated!')->withInput();
+            }
+        } catch (\Exception $e) {
+            //TODO: log_message()
+        }
+
+
+    }
+
+    //For sorting the products in index view
+    public function category($category = 'all')
+    {
+        $productModel = new ProductModel();
+
+        $products = $productModel->readCategory(new \App\Entities\Product(['category' => $category]));
+
+        $data = [
+            'title' => 'Update Product',
+            'products' => $products
+        ];
+
+        echo view('templates/header', $data);
+        echo view('product/index', $data);
+        echo view('templates/footer');
     }
 
     public function productPost()
     {
+        helper('form');
+
+        if($product->category){
+            $product = new \App\Entities\Product(['category'=>$product->category]);
+        }
+
+        $productModel = new ProductModel();
+        $products=$productModel->readCategory($product);
+
+
+//
+//        if ($this->request->getMethod() == 'post') {
+//
+//            $postData = $this->request->getPost();
+//            $product = new \App\Entities\Product($postData);
+//
+//            $productModel = new ProductModel();
+//
+//        }
 
     }
 
@@ -71,37 +200,35 @@ class Product extends BaseController
         if (!$this->session->get('loggedIn')) {
             return redirect()->to('/admin/login');
         }
+        $options = [
+            'feeders' => 'Feeders',
+            'spares' => 'Spares',
+            'bulktanks' => 'Bulk Tanks',
+            'robotmilkers' => 'Robot Milkers',
+            'clusters' => 'Clusters'
+        ];
 
         $data = [
             "title" => "Products",
+            'options' => $options
         ];
 
-
-        $options = [
-            'feeders' => 'feeders',
-            'spares' => 'spares',
-            'bulktanks' => 'Bulk Tanks',
-            'robotmilkers' => 'Robot Milkers'
-        ];
 
         //echo the views
         echo view('templates/header', $data);
-        echo view('product/add', $options);
+        echo view('product/add', $data);
         echo view('templates/footer');
-
     }
+
+
 
     public function addPost()
     {
         if (!$this->session->get('loggedIn')) {
             return redirect()->to('/admin/login');
         }
-
         helper('form');
-
-
         if ($this->request->getMethod() == 'post') {
-            log_message('debug', 'got to the post bit inside addPost() :)');
 
             $postData = $this->request->getPost();
             $product = new \App\Entities\Product($postData);
@@ -142,11 +269,15 @@ class Product extends BaseController
 
         }
 
-
     }
 
     public function success()
     {
+        $data = [
+            "title" => "Success",
+        ];
+
+        echo view('templates/header',$data);
         echo view('product/success');
     }
 

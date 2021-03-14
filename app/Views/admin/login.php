@@ -11,15 +11,10 @@ helper('form');
 
 <div class="wrapper">
     <div id="formContent">
-        <!-- Tabs Titles -->
-
-        <!-- Logo -->
-<!--        <div class="fadeIn first">-->
-            <?= img("images/logo.png") ?>
-
-
+        <?= img("images/logo.png") ?>
         <?php
-        echo "<p>$error</p>";
+
+        echo "<br><br>";
 
         echo form_open(base_url('/admin/login'));
 
@@ -33,13 +28,13 @@ helper('form');
 
         echo form_submit('submit', 'Login');
 
+        echo "<div class='text-warning'><p>$error</p></div>";
+
         echo form_close();
 
         ?>
-
         <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a>
         </div>
     </div>
-    </div>
-<!--</div>-->
+</div>

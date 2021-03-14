@@ -4,58 +4,57 @@ $error = $session->getFlashdata('error') ?? '';
 helper('form');
 ?>
 
-<div class="container-lg">
-    <br><br><br>
+<div class="container-fluid">
+    <br><br>
     <!-- products row -->
     <div class="row">
+        <div class="col-12 col-md-2 border-right">
+                <div class="container ">
+                    <div>
+                        <strong>Sort by</strong>
+                        <br>
+                    </div>
+                    <div>
+                        <form action="/product/all" method="get">
+                            <br>
+                            <input type="radio" id="all" name="category" value="all">
+                            <label for="all"> All</label><br>
 
-        <div class="col-12 col-md-4">
-            <div class="row">
-                <nav class="navbar navbar-dark">
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </nav>
-            </div>
-            <div class="row">
-                <div>
-                    <p>Sort By</p>
-                </div>
-                <div>
-                    <?php
-                    echo "<p>$error</p>";
+                            <input type="radio" id="spares" name="category" value="spares">
+                            <label for="spares"> Spares</label><br>
 
-                    echo form_open(base_url('/product/all'));
+                            <input type="radio" id="feeders" name="category" value="feeders">
+                            <label for="feeders"> Feeders</label><br>
 
-                    echo form_checkbox('delaval', 'accept', FALSE);
-                    echo form_label('Delaval', 'delaval');
-                    echo '<br>';
+                            <input type="radio" id="bulktanks" name="category" value="bulktanks">
+                            <label for="bulktanks"> Bulk Tanks</label><br>
 
-                    echo form_checkbox('fullwood', 'accept', FALSE);
-                    echo form_label('Fullwood', 'fullwood');
-                    echo '<br>';
+                            <input type="radio" id="robotmilkers" name="category" value="robotmilkers">
+                            <label for="robotmilkers"> Robot Milkers</label><br>
 
-                    echo form_checkbox('geo', 'accept', FALSE);
-                    echo form_label('GEO', 'geo');
-                    echo '<br>';
+                            <input type="radio" id="clusters" name="category" value="clusters">
+                            <label for="clusters"> Clusters</label><br>
+                        </form>
 
+                        <script>
+                            $('input[type="radio"]').on('click', function () {
 
-                    echo form_submit('submit', 'Go');
-
-                    echo form_close();
-
-                    ?>
+                                window.location = "/products/" + $(this).val();
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
-        </div>
+
+
+
 
         <div class="col-12 col-md-8">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class=" row row-cols-1 row-cols-md-3 g-3">
                 <?php foreach (@$products as $product): ?>
                     <div class="col">
-                        <div class="card">
-                            <?= img("/uploads/images/$product->filename", false, 'width="350" height="300"') ?>
+                        <div class="card mb-4">
+                            <?= img("/uploads/images/$product->filename", false, 'width="100%" height="300px"') ?>
                             <div class="card-body">
                                 <h5 class="card-title"><?= $product->name; ?></h5>
                                 <p class="card-text">
@@ -67,5 +66,26 @@ helper('form');
                 <?php endforeach; ?>
             </div>
         </div>
+
+
+
+        <div class="col-12 col-md-2 border-left">
+            <div class="container">
+                <p>
+                    <strong>For pricing please contact us at:</strong>
+                </p>
+                <div class="border-bottom border-top pt-1">
+                    <p><i class="fas fa-phone"></i>&nbsp;(+44) 01260 226261</p>
+                    <p><i class="fas fa-phone"></i>&nbsp;(+44) 01260 226544</p>
+                </div>
+                <div class="pt-1">
+                    <p><i class="icon-envelope"></i>&nbsp;vic@vbfabrications.com</p>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
+
 </div>

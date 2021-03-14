@@ -52,12 +52,6 @@ class Admin extends BaseController
         return view('admin/login');
     }
 
-//    public function setlogin()
-//    {
-//        $this->session->set('loggedIn', true);
-//        return redirect()->to('/admin/dashboard');
-//    }
-
     public function logout()
     {
         $this->session->destroy();
@@ -66,6 +60,9 @@ class Admin extends BaseController
 
     public function dashboard()
     {
+        if (!$this->session->get('loggedIn')) {
+            return redirect()->to('/admin/login');
+        }
 
         echo view('templates/header',['title'=>'Dashboard']);
         echo view('admin/dashboard');

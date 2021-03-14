@@ -1,7 +1,14 @@
 <?php
+
 ?>
-<p>Addition was successful</p>
+<div class="container">
+    <div class="mt-5">
+        <p class="alert alert-success text-center" role="alert">
+            The product was added successfully!
+        </p>
+    </div>
 
-<a href="/product/add">Back to dashboard</a>
-
-
+    <div class="text-center">
+        <a href="/admin/dashboard" class="btn btn-success">Back to dashboard</a>
+    </div>
+</div>

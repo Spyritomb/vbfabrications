@@ -27,8 +27,7 @@ class ProductModel extends Model
         'name' => 'required|max_length[211]',
         'price' => 'required|max_length[211]',
         'tag' => 'required|max_length[211]',
-        'description' => 'required|max_length[211]',
-        //'category'=> 'required|in_list[spares,feeders,bulktanks,robotmilkers]'
+        'description' => 'required|max_length[600]',
     ];
 
     protected $useTimestamps = false;
@@ -51,6 +50,22 @@ class ProductModel extends Model
         }
     }
 
+
+    //Check ed's code for this
+    public function modify(Product $product): bool
+    {
+        try {
+            if ($this->update($product->id, $product)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\ReflectionException $e) {
+            log_message('error', '[ERROR] {exception}', ['exception' => $e]);
+            return false;
+        }
+    }
+
     public function createProduct()
     {
         try {
@@ -59,6 +74,19 @@ class ProductModel extends Model
 
         }
 
+    }
+
+    public function readCategory(Product $product)
+    {
+        if ($product->category == 'all') {
+            return $this->findAll();
+        } else {
+            return $this
+                ->select()
+                ->where('category', $product->category)
+                ->findAll();
+
+        }
     }
 
 }
