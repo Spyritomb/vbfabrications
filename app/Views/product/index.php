@@ -9,7 +9,7 @@ helper('form');
     <!-- products row -->
     <div class="row">
         <div class="col-12 col-md-2 border-right">
-                <div class="container ">
+                <div class="container h4">
                     <div>
                         <strong>Sort by</strong>
                         <br>
@@ -57,6 +57,7 @@ helper('form');
                             <?= img("/uploads/images/$product->filename", false, 'width="100%" height="300px"') ?>
                             <div class="card-body">
                                 <h5 class="card-title"><?= $product->name; ?></h5>
+                                <h6 class="card-title">Unique ID:&nbsp;<?= $product->tag; ?></h6>
                                 <p class="card-text">
                                     <?= $product->description; ?>
                                 </p>
@@ -79,7 +80,7 @@ helper('form');
                     <p><i class="fas fa-phone"></i>&nbsp;(+44) 01260 226544</p>
                 </div>
                 <div class="pt-1">
-                    <p><i class="icon-envelope"></i>&nbsp;vic@vbfabrications.com</p>
+                    <a href="mailto:Vic@milkingequipment.com?subject=Mail from Our Site"><i class="icon-envelope"></i>&nbsp;Vic@milkingequipment.com</a>
                 </div>
             </div>
         </div>

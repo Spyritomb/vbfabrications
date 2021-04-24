@@ -110,16 +110,26 @@ class Product extends BaseController
     public function updateGet($productID)
     {
         if (!$this->session->get('loggedIn')) {
-            return redirect()->to('/admin/login',401);
+            return redirect()->to('/admin/login', 401);
         }
 
         $productModel = new ProductModel();
 
         $product = $productModel->find($productID);
 
+
+        $options = [
+            'feeders' => 'Feeders',
+            'spares' => 'Spares',
+            'bulktanks' => 'Bulk Tanks',
+            'robotmilkers' => 'Robot Milkers',
+            'clusters' => 'Clusters'
+        ];
+
         $data = [
             'title' => 'Update Product',
-            'product' => $product
+            'product' => $product,
+            'options' => $options
         ];
 
         echo view('templates/header', $data);
@@ -128,7 +138,8 @@ class Product extends BaseController
 
     }
 
-    public function updatePost(){
+    public function updatePost()
+    {
 
         // Mak sure the product id is available in the post data or update won't work
         $product = new \App\Entities\Product($this->request->getPost());
@@ -175,24 +186,12 @@ class Product extends BaseController
     {
         helper('form');
 
-        if($product->category){
-            $product = new \App\Entities\Product(['category'=>$product->category]);
+        if ($product->category) {
+            $product = new \App\Entities\Product(['category' => $product->category]);
         }
 
         $productModel = new ProductModel();
-        $products=$productModel->readCategory($product);
-
-
-//
-//        if ($this->request->getMethod() == 'post') {
-//
-//            $postData = $this->request->getPost();
-//            $product = new \App\Entities\Product($postData);
-//
-//            $productModel = new ProductModel();
-//
-//        }
-
+        $products = $productModel->readCategory($product);
     }
 
     public function addGet()
@@ -221,7 +220,6 @@ class Product extends BaseController
     }
 
 
-
     public function addPost()
     {
         if (!$this->session->get('loggedIn')) {
@@ -241,7 +239,8 @@ class Product extends BaseController
                 log_message('error', 'Failed to validate');
                 return redirect()
                     ->back()
-                    ->with('error', 'Input validation failed at server-side.')
+//                    server-side error
+                    ->with('error', 'Input validation failed, please fill all the required fields marked with (*).')
                     ->withInput();
             } else {
                 try {
@@ -277,7 +276,7 @@ class Product extends BaseController
             "title" => "Success",
         ];
 
-        echo view('templates/header',$data);
+        echo view('templates/header', $data);
         echo view('product/success');
     }
 

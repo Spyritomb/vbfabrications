@@ -1,5 +1,11 @@
+<?php
+$session = \Config\Services::session();
+?>
+
 <div class="pr-0 mr-0">
     <div class=" navbar-expand-md navbar-dark bg-dark h-100">
+
+        <?php if (!$session->get('loggedIn')): ?>
         <div class="text-center">
             <div class="text-white">
                 <strong>Subscribe to our newsletter.</strong>
@@ -22,11 +28,13 @@
                         <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Email">
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                        <button type="submit" class="btn btn-success mb-2">Subscribe</button>
                     </div>
                 </div>
             </form>
         </div>
+        <?php else: ?>
+        <?php endif; ?>
 
         <div class="navbar-collapse collapse justify-content-center order-1" id="collapsingNavbar">
             <ul class="navbar-nav">

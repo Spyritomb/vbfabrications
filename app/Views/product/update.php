@@ -3,7 +3,12 @@ $session = Config\Services::session();
 $error = $session->getFlashdata('error') ?? '';
 helper('form');
 ?>
+<div class="row">
+    <div class="ml-xl-5 text-left">
+        <div><a href="/product/view"><i class="icon-long-arrow-left"></i>&nbsp;Back to Edit Products</a></div>
+    </div>
 
+</div>
 <div class="wrapper">
 
     <?php
@@ -32,7 +37,7 @@ helper('form');
     //////////////////////////////////////////////////////////////////////Ask ed about it,  https://codeigniter.com/user_guide/helpers/form_helper.html?highlight=list   search for drop-down field
     echo form_label('Product Category','category');
     echo '<br>';
-    echo form_dropdown('category',$options);
+    echo form_dropdown('category',$options,old('category') ?? $product->category);
     echo '<br><br>';
     //////////////////////////////////////////////////////////////////////
 

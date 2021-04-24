@@ -22,12 +22,11 @@ class ProductModel extends Model
         'category',
     ];
 
-
     protected $validationRules = [
         'name' => 'required|max_length[211]',
-        'price' => 'required|max_length[211]',
-        'tag' => 'required|max_length[211]',
-        'description' => 'required|max_length[600]',
+//        'price' => 'required|max_length[211]',
+//        'tag' => 'required|max_length[211]',
+        'description' => 'required|max_length[600]'
     ];
 
     protected $useTimestamps = false;
@@ -51,7 +50,6 @@ class ProductModel extends Model
     }
 
 
-    //Check ed's code for this
     public function modify(Product $product): bool
     {
         try {

@@ -50,15 +50,12 @@ $session = \Config\Services::session();
                 <li class="nav-item active mr-5">
                     <a class="nav-link" href="/about"><i class="fas fa-info"></i>&nbsp;About Us&nbsp;&nbsp;</a>
                 </li>
-                <li class="nav-item dropdown active mr-5">
-                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-hands-helping"></i>&nbsp;Partners</a>
-                    <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" role="presentation" href="/partners/delaval">DeLaval</a>
-                        <a class="dropdown-item" role="presentation" href="/partners/fullwood">Fullwood</a>
-                        <a class="dropdown-item" role="presentation" href="/partners/gea">GEA</a>
-                    </div>
 
+
+                <li class="nav-item active mr-5">
+                    <a class="nav-link" href="/partners"><i class="fas fa-hands-helping"></i>&nbsp;Partners&nbsp;&nbsp;</a>
                 </li>
+
                 <li class="nav-item active mr-5">
                     <a class="nav-link" href="/sub">&nbsp;&nbsp;<i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;AI&nbsp;Search</a>
                 </li>
