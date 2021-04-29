@@ -10,7 +10,17 @@ use phpDocumentor\Reflection\Types\False_;
 
 class UserModel extends Model
 {
+
+    /**Name of the table in the database.
+     *
+     * @var string
+     */
     protected $table = 'user';
+
+    /**Primary key of the table
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -18,6 +28,10 @@ class UserModel extends Model
     protected $returnType = 'App\Entities\User';
     protected $useSoftDeletes = false;
 
+    /** Allows on the specified fields to be alternated.
+     *
+     * @var string[]
+     */
     protected $allowedFields = ['username', 'password'];
 
     protected $useTimestamps = false;
@@ -29,10 +43,18 @@ class UserModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = true;
 
+
+    /** Finds all the users where the id matches.
+     *
+     *
+     * @param User $user
+     * @return array|object|null
+     */
     public function read(User $user)
     {
         return $this->find($user->id);
     }
+
 
     public function readByUsername(User $user, bool $returnPassword = false)
     {
@@ -50,12 +72,16 @@ class UserModel extends Model
 
     }
 
+    /** If the user exists in the database, checks their password
+     *  whether it matches in the database.
+     *
+     *
+     * @param User $user
+     * @return User|false
+     */
     public function login(User $user)
     {
         $dbUser = $this->readByUsername($user, true);
-        echo '<pre>';
-        var_dump($dbUser);
-        echo '</pre>';
         if ($dbUser) {
             if (password_verify($user->password, $dbUser->password)) {
                 return new User([
@@ -69,9 +95,6 @@ class UserModel extends Model
             log_message('error','User does not exist');
             return false;
         }
-
-        //Check if it exists
-        //checks whether the password provided matches the pass in db
 
     }
 }

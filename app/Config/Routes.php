@@ -32,8 +32,10 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Product::index');
 $routes->get('/pages', 'Pages::view');
+
 $routes->get('/product/add','Product::addGet');
 $routes->post('/product/add','Product::addPost');
+
 $routes->get('/products', 'Product::index');
 $routes->get('/products/(:alpha)', 'Product::category/$1');
 

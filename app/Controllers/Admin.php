@@ -7,9 +7,18 @@ use App\Entities\User;
 use App\Models\ProductModel;
 use App\Models\UserModel;
 
+/**
+ * The Admin controller gets the request form the browser and
+ * returns one or more views from one or more models where required.
+ *
+ */
 
 class Admin extends BaseController
 {
+    /**
+     * The default method of this controller
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function index()
     {
         if ($this->session->get('loggedIn')) {
@@ -26,6 +35,16 @@ class Admin extends BaseController
         }
         return view('admin/login');
     }
+
+    /** Checks whether the users is logged in. If so they are straight redirected
+     * to the dash bord if not, they are successfully logged in upon submitting the correct
+     * login info.
+     *
+     *
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     *
+     */
 
     public function loginPost()
     {
@@ -52,12 +71,20 @@ class Admin extends BaseController
         return view('admin/login');
     }
 
+    /**
+     * Destroys the session and redirects to the home page
+     * @return \CodeIgniter\HTTP\RedirectResponse (redirect to home page)
+     */
     public function logout()
     {
         $this->session->destroy();
         return redirect()->to('/');
     }
 
+    /**
+     * First checks wether the admin is already logged in, if not requires the account credentials
+     * @return \CodeIgniter\HTTP\RedirectResponse (redirects to the admin page)
+     */
     public function dashboard()
     {
         if (!$this->session->get('loggedIn')) {

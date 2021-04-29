@@ -8,24 +8,24 @@ use App\Entities\Person;
 use App\Models\PersonModel;
 use App\Models\ProductModel;
 
+/**
+ * The Product controller gets the request form the browser and
+ * returns one or more views from one or more models where required.
+ *
+ */
+
 class Product extends BaseController
 {
 
+    /**
+     * The default method of this controller
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function index()
     {
 
         $productModel = new ProductModel();
         $products = $productModel->findAll();
-
-//        $imageProperties = [
-//            'src' => 'images/Tractor.jpg',
-//            'alt' => 'Me, demonstrating how to eat 4 slices of pizza at one time',
-//            'class' => 'post_images',
-//            'width' => '200',
-//            'height' => '200',
-//            'title' => 'That was quite a night',
-//            'rel' => 'lightbox'
-//        ];
 
         $data = [
             "title" => "Products",
@@ -37,6 +37,7 @@ class Product extends BaseController
         echo view('product/index', $data);
         echo view('templates/footer');
     }
+
 
 
     public function view()
@@ -57,6 +58,10 @@ class Product extends BaseController
 
     }
 
+    /**Displays the delete page of the dashboard.
+     *
+     *
+     */
     public function deleteGet()
     {
         $productModel = new ProductModel();
@@ -75,6 +80,12 @@ class Product extends BaseController
 
     }
 
+    /** Checks whether a user is logged in to perform the actions.
+     * If they are logged in, they can select a product from the form, submit and then delete it.
+     *
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function deletePost()
     {
         $productModel = new ProductModel();
@@ -98,15 +109,21 @@ class Product extends BaseController
                 $productModel->delete($product);
             }
 
-            echo '<pre>';
-            var_dump($products);
-            echo '</pre>';
+//            echo '<pre>';
+//            var_dump($products);
+//            echo '</pre>';
 
-            return redirect()->to('admin/dashboard');
+            return redirect()->to('/admin/dashboard');
         }
 
     }
 
+    /**Displays the  update page of the dashboard.
+     *
+     *
+     * @param $productID
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function updateGet($productID)
     {
         if (!$this->session->get('loggedIn')) {
@@ -138,6 +155,11 @@ class Product extends BaseController
 
     }
 
+    /** Calls upon the modify function to update the product, if the product is successfully update they are redirect to a page with the appropriate message.
+     *
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function updatePost()
     {
 
@@ -165,7 +187,12 @@ class Product extends BaseController
 
     }
 
-    //For sorting the products in index view
+    /** Displays the index (main) page of the webpage.
+     *
+     *
+     * @param string $category
+     */
+
     public function category($category = 'all')
     {
         $productModel = new ProductModel();
@@ -182,6 +209,10 @@ class Product extends BaseController
         echo view('templates/footer');
     }
 
+    /** Displays each product under the same category ( For sorting in the main page )
+     *
+     *
+     */
     public function productPost()
     {
         helper('form');
@@ -194,6 +225,11 @@ class Product extends BaseController
         $products = $productModel->readCategory($product);
     }
 
+    /** Displays the page where the user can add a product.
+     *
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function addGet()
     {
         if (!$this->session->get('loggedIn')) {
@@ -219,6 +255,14 @@ class Product extends BaseController
         echo view('templates/footer');
     }
 
+    /** Handles the submitted data through the form.
+     * 1) Checks whether all the required fields of the form are filled.
+     * 2) If step 1 is passed, then it handles the submitted image by giving it an appropriate name and stores in the right folder.
+     * 3) IF step 2 is successful, then the products is added to the database.
+     *
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
 
     public function addPost()
     {
@@ -270,6 +314,9 @@ class Product extends BaseController
 
     }
 
+    /** Displays a success message to the user when the product is added.
+     *
+     */
     public function success()
     {
         $data = [
