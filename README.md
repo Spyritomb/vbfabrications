@@ -11,7 +11,7 @@ To run the application:
 If you want to run this application on your local device, please copy this folder in htdocs and within xampp
 config controll: 
 
-Apache (httpd.conf) and change the following lineis to this:
+Apache (httpd.conf) and change the following lines to this:
 
 DocumentRoot "C:/xampp/htdocs/vbfabrications/public"
 <Directory "C:/xampp/htdocs/vb fabrications/public">
