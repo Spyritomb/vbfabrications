@@ -14,7 +14,7 @@ config controll:
 Apache (httpd.conf) and change the following lines to this:
 
 DocumentRoot "C:/xampp/htdocs/vbfabrications/public"
-<Directory "C:/xampp/htdocs/vb fabrications/public">
+<Directory "C:/xampp/htdocs/vbfabrications/public">
 
 Apache (httpd-ssl.conf) and change the following lineis to this:
 
