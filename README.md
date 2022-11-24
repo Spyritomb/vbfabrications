@@ -22,7 +22,7 @@ DocumentRoot "C:/xampp/htdocs/vbfabrication/public"
 
 
 	Method 2:
-Withing the vbfibrication directory run cmd and type: "php spark serve"
+Within the vbfibrication directory run cmd and type: "php spark serve"
 
 
 
